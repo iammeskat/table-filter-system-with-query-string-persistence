@@ -1,8 +1,12 @@
+"use client";
+import Table from "@/components/table";
 
 const TodoListView = () => {
-  return (
-	 <div>TodoListView</div>
-  )
+	return (
+		<div>
+			<Table />
+		</div>
+	)
 }
 
 export default TodoListView
