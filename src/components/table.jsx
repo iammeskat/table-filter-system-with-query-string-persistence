@@ -1,25 +1,27 @@
 import { ArrowUpNarrowWide, ArrowUpWideNarrow, ChevronsUpDown } from "lucide-react";
 import DataEmptyState from "./data-empty-state";
 import PaginationButtons from "./pagination-buttons";
-// import TableDataMetaInfo from "./TableDataMetaInfo";
-// import TableEmptyState from "./TableEmptyState";
 
 const Table = ({
+	title = "",
 	columns = [],
 	data: tableData = [],
 	query = {},
 	setQuery = () => { },
-	isFetching = false,
-	isLoading = false,
+	fetching = false,
+	loading = false,
 }) => {
-	const { sort_by, sort_order, count, page, total } = query;
-	const data = isLoading ? Array(10).fill({}) : tableData;
-	console.log({ columns, tableData, data })
+	const { sort_by, sort_order, _limit, _page, total } = query;
+	const data = loading ? Array(10).fill({}) : tableData;
 
 	return (
 		<div className="w-full flex flex-col gap-1">
-			{/* {data?.length > 0 && <TableDataMetaInfo data={query} isLoading={isLoading} />} */}
-			<div className="rounded-md border w-full">
+			{title &&
+				<h3 className="font-bold text-xl">
+					{title}
+				</h3>
+			}
+			<div className="rounded-md border border-slate-300 w-full overflow-hidden">
 				{data?.length ? (
 					<div className="w-full overflow-y-auto ">
 						<table className="w-full text-sm text-left rtl:text-right">
@@ -65,10 +67,10 @@ const Table = ({
 								{data.map((row = {}, rIndx) => (
 									<tr
 										key={`r_${rIndx}`}
-										className="bg-white border-b hover:bg-gray-50"
+										className="bg-white border-b border-slate-300 hover:bg-gray-50"
 									>
 										{columns.map((column = {}, cIndx) => {
-											const { dataIndex, render = () => { }, style = {}, hide } = column;
+											const { dataIndex, render, style = {}, hide } = column;
 											if (hide) return "";
 											return (
 												<td
@@ -76,13 +78,13 @@ const Table = ({
 													className="px-2 py-4  first:pl-4 last:pr-4 last:text-right"
 													style={style}
 												>
-													{isFetching ? (
+													{fetching ? (
 														<div className="h-4 my-1 w-full bg-slate-300 rounded animate-pulse" />
-													) : (render({
+													) : (render ? render({
 														row,
 														index: rIndx,
 														data: row[dataIndex] || null,
-													}))}
+													}) : row[dataIndex] || null)}
 												</td>
 											)
 										})}
@@ -96,12 +98,12 @@ const Table = ({
 				)}
 				<div className="w-full flex justify-end py-2 pr-2">
 					<PaginationButtons
-						total={Math.ceil(total / count) || 0}
-						current={page}
-						count={count}
-						onChange={val => setQuery({ ...query, page: val })}
-						setCount={(val) => setQuery({ ...query, count: val })}
-						isFetching={isFetching}
+						total={Math.ceil(total / _limit) || 0}
+						current={_page}
+						count={_limit}
+						onChange={val => setQuery(prev => ({ ...prev, _page: val }))}
+						setCount={(val) => setQuery(prev => ({ ...prev, _limit: val }))}
+						fetching={fetching}
 					/>
 				</div>
 			</div >

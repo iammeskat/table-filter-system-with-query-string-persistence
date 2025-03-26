@@ -8,3 +8,9 @@ export const toQueryStrings = (object) => {
 				.join("&")
 		);
 };
+
+export const shallowRoute = (path) => {
+	if (typeof window !== "undefined") {
+		window.history.replaceState({}, undefined, path);
+	}
+};

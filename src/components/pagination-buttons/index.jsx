@@ -148,15 +148,15 @@ const PaginationButtons = ({
 				value={count}
 				onChange={e => setCount(e.target.value)}
 				options={[
-					{ label: "10 / page", val: 10 },
-					{ label: "30 / page", val: 30 },
-					{ label: "50 / page", val: 50 },
-					{ label: "100 / page", val: 100 },
-					{ label: "200 / page", val: 200 },
-					{ label: "300 / page", val: 300 },
-					{ label: "500 / page", val: 500 },
-					{ label: "700 / page", val: 700 },
-					{ label: "1000 / page", val: 1000 }
+					{ label: "10 / page", value: 10 },
+					{ label: "30 / page", value: 30 },
+					{ label: "50 / page", value: 50 },
+					{ label: "100 / page", value: 100 },
+					{ label: "200 / page", value: 200 },
+					{ label: "300 / page", value: 300 },
+					{ label: "500 / page", value: 500 },
+					{ label: "700 / page", value: 700 },
+					{ label: "1000 / page", value: 1000 }
 				]}
 			/>
 		</div>

@@ -1,84 +1,30 @@
 "use client";
-import Table from "@/components/table";
+import useTableQuery from "@/hooks/useTableQuery";
 import { useFetchTodoListQuery } from "@/redux/api/services/todo-api";
-import { HashIcon } from "lucide-react";
-import Link from "next/link";
+import TodoListFilters from "./components/todo-list-filters";
+import TodoListTable from "./components/todo-list-table";
 
 const TodoListView = () => {
-	const { data = [], isLoading, isFetching } = useFetchTodoListQuery();
-	console.log({ data })
+	const { tableQuery, setTableQuery, isReady } = useTableQuery();
+	const isFilledRequiredFields = (tableQuery.division && tableQuery.district);
+	const skip = (!isReady || !isFilledRequiredFields);
+	const { data = [], isLoading, isFetching } = useFetchTodoListQuery(tableQuery, { skip });
 
-	const tableColumns = [
-		{
-			title: <HashIcon className="size-4" />,
-			dataIndex: "idx",
-			sortable: true,
-			render: ({ data, index }) => (
-				<p>
-					{data}
-				</p>
-			),
-			style: { width: '40px' }
-		},
-		{
-			title: "Title",
-			dataIndex: "title",
-			sortable: true,
-			render: ({ data, row, index }) => (
-				<Link href={`/tickets/${row._id}`}>
-					<p className="text-blue-500 font-medium hover:underline">
-						{data}
-					</p>
-				</Link>
-			)
-		},
-		{
-			title: "Device",
-			dataIndex: "device",
-			render: ({ data, row, index }) => (
-				<p>
-					{data?.serial_number || "N/A"}
-				</p>
-			)
-		},
-		{
-			title: "Ticket Owner",
-			dataIndex: "submitter",
-			render: ({ data, row, index }) => (
-				<p className="notranslate">
-					{data?.name || "---"}
-				</p>
-			)
-		},
+	const loading = (isLoading || !isReady);
+	const fetching = (isFetching || !isReady);
 
-		{
-			title: "Creation Date",
-			dataIndex: "createdAt",
-			sortable: true,
-			render: ({ data, row, index }) => (
-				<p>
-					{/* {getFormattedDate(data) || "N/A"} */}
-				</p>
-			)
-		},
-		// {
-		// 	title: "Action",
-		// 	render: ({ row, index }) => (
-		// 		<TicketActionMenu
-		// 			data={row}
-		// 			onAction={(action) => onAction(action, row)}
-		// 		/>
-		// 	)
-		// },
-	];
-	console.log({ data })
 	return (
-		<div>
-			<Table
-				columns={tableColumns}
-				data={data}
-				isLoading={isLoading}
-				isFetching={isFetching}
+		<div className="w-full flex flex-col gap-8">
+			<TodoListFilters
+				query={tableQuery}
+				setQuery={setTableQuery}
+			/>
+			<TodoListTable
+				data={isFilledRequiredFields ? data : []}
+				setQuery={setTableQuery}
+				query={tableQuery}
+				loading={loading}
+				fetching={fetching}
 			/>
 		</div>
 	)
