@@ -16,14 +16,14 @@ const useTableQuery = (initialQuery = { _page: 1, _limit: 10 }) => {
 				setTableQuery((prev) => ({ ...prev, ...params }));
 			setIsReady(true);
 		}
-	}, [isReady]);
+	}, [isReady, searchParams]);
 
 	useEffect(() => {
 		if (isReady) {
 			shallowRoute(`${window.location.pathname}${toQueryStrings(tableQuery)}`);
 			// router.replace("/" + toQueryStrings(tableQuery), undefined, { shallow: true });
 		}
-	}, [tableQuery]);
+	}, [tableQuery, isReady]);
 
 	return { tableQuery, setTableQuery, isReady }
 }

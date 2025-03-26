@@ -1,7 +1,10 @@
 import TodoListView from "@/views/todo-list-view";
+import { Suspense } from "react";
 
 export default function TodoListPage() {
 	return (
-		<TodoListView />
+		<Suspense fallback="Loading...">
+			<TodoListView />
+		</Suspense>
 	);
 }
