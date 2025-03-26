@@ -7,7 +7,7 @@ export const todoApi = baseApi.injectEndpoints({
 
 		fetchTodoList: builder.query({
 			query: (query = {}) => `/todos${toQueryStrings(query)}`,
-			transformResponse: res => res.data,
+			// transformResponse: res => res.data,
 			providesTags: ['TODO'],
 		}),
 

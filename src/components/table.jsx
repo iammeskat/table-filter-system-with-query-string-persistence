@@ -14,6 +14,7 @@ const Table = ({
 }) => {
 	const { sort_by, sort_order, count, page, total } = query;
 	const data = isLoading ? Array(10).fill({}) : tableData;
+	console.log({ columns, tableData, data })
 
 	return (
 		<div className="w-full flex flex-col gap-1">

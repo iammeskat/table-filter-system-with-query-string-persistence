@@ -1,6 +1,6 @@
 import TodoListView from "@/views/todo-list-view";
 
-export default function Home() {
+export default function HomePage() {
 	return (
 		<TodoListView />
 	);
