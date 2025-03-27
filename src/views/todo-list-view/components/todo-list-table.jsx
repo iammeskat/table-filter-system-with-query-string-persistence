@@ -20,7 +20,7 @@ const TodoListTable = ({
 			dataIndex: "title",
 			sortable: true,
 			render: ({ data, row, index }) => (
-				<p className="text-blue-500 font-medium hover:underline">
+				<p className="text-blue-500 font-medium line-clamp-1">
 					{data}
 				</p>
 			)
@@ -46,7 +46,7 @@ const TodoListTable = ({
 			loading={loading}
 			fetching={fetching}
 			// query={query}
-			query={{ ...query, total: 200, page_size: query?.count || 50 }}
+			query={{ ...query, total: data.length ? 200 : 0, page_size: query?._limit }}
 			setQuery={setQuery}
 		/>
 	)

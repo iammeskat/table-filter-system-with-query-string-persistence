@@ -16,7 +16,7 @@ export default function BtnPagination({ component, onClick = () => { }, active, 
 			disabled={disabled}
 			size="icon"
 			variant={active ? "" : "outline"}
-			className={` min-w-10 ${(active) ? "cursor-default opacity-40" : "cursor-pointer hover:bg-slate-100 rounded-lg"}	`}
+			className={`flex items-center justify-center min-w-10 ${(active) ? "cursor-default opacity-40" : "cursor-pointer hover:bg-slate-100 rounded-lg"}	`}
 		>
 			{(active && isFetching) ? <Loader className="size-6 animate-spin" /> : component}
 		</button>

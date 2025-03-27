@@ -38,6 +38,7 @@ const TodoListFilters = ({
 					value={query?.district}
 					onChange={handleChange}
 					division={query?.division}
+					title={query?.division ? "" : "Please select a division first, then choose a district."}
 				/>
 			</div>
 			<div className="w-full sm:w-32">
@@ -61,7 +62,7 @@ const TodoListFilters = ({
 			</div>
 			<div className="ml-auto">
 				<Button
-					text="Cleat Filters"
+					text="Clear Filters"
 					onClick={handleClearFilters}
 				/>
 			</div>
